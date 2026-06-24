@@ -1,0 +1,71 @@
+.heroContainer {
+  position: relative;
+  overflow: hidden;
+  min-height: 58vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid rgba(168, 169, 173, 0.5);
+  border-bottom: 1px solid rgba(168, 169, 173, 0.5);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(232, 232, 232, 0.25) 0,
+      rgba(232, 232, 232, 0.25) 1px,
+      transparent 1px,
+      transparent 26px
+    ),
+    #ffffff;
+}
+
+.content {
+  position: relative;
+  width: min(900px, 90%);
+  text-align: center;
+  color: var(--color-blue-dark);
+  animation: revealHero 1s ease forwards;
+  padding: 24px;
+}
+
+.content h1 {
+  color: var(--color-blue-dark);
+  font-size: clamp(1.8rem, 5vw, 3.2rem);
+  line-height: 1.3;
+  font-weight: 600;
+  margin: 18px 0 14px;
+}
+
+.content p {
+  letter-spacing: 0.3px;
+  font-size: clamp(1rem, 2.4vw, 1.15rem);
+  color: #3f4f6d;
+}
+
+.decorativeLine {
+  display: block;
+  width: 200px;
+  height: 1px;
+  margin: 0 auto;
+  background: linear-gradient(90deg, transparent, var(--color-silver), transparent);
+}
+
+@keyframes revealHero {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 768px) {
+  .heroContainer {
+    min-height: 64vh;
+  }
+
+  .decorativeLine {
+    width: 260px;
+  }
+}
