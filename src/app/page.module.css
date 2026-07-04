@@ -4,7 +4,7 @@
 }
 
 .section {
-  padding: 110px 6%;
+  padding: 84px 6%;
   width: min(1240px, 100%);
   margin: 0 auto;
 }
@@ -65,7 +65,7 @@
 
 @media (min-width: 768px) {
   .section {
-    padding: 120px 8%;
+    padding: 96px 8%;
   }
 
   #inicio {

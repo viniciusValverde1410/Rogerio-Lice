@@ -29,6 +29,13 @@
   gap: 12px;
 }
 
+.extraGrid {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
 .infoItem {
   position: relative;
   text-align: center;
@@ -65,6 +72,100 @@
   text-align: center;
 }
 
+.extraCard {
+  text-align: center;
+  padding: 22px 16px;
+  border-radius: var(--radius-soft);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(245, 247, 251, 0.95));
+  box-shadow: 0 8px 28px rgba(27, 42, 74, 0.08);
+}
+
+.countdownGrid {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.countdownGrid div {
+  background: #ffffff;
+  border: 1px solid rgba(168, 169, 173, 0.22);
+  padding: 12px 8px;
+}
+
+.countdownGrid strong {
+  display: block;
+  color: var(--color-blue-dark);
+  font-family: "Playfair Display", serif;
+  font-size: 1.4rem;
+}
+
+.countdownGrid span {
+  display: block;
+  margin-top: 4px;
+  color: var(--color-silver);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.mapLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 45px;
+  padding: 0 22px;
+  border: 1px solid var(--color-blue-dark);
+  color: var(--color-blue-dark);
+  font-weight: 700;
+}
+
+.mapLink:hover {
+  background: var(--color-blue-dark);
+  color: var(--color-white);
+}
+
+.mapActions {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.mapIcon {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.copyAddressButton {
+  min-height: 40px;
+  padding: 0 18px;
+  border: 1px solid rgba(168, 169, 173, 0.35);
+  background: #ffffff;
+  color: var(--color-blue-dark);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.copyAddressButton:hover {
+  background: #f3f6fb;
+}
+
+.copyFeedback {
+  margin-top: 10px;
+  color: #2f6b43;
+  font-size: 0.92rem;
+}
+
+.mapAddress {
+  margin-top: 12px;
+  color: #4a566f;
+  line-height: 1.6;
+}
+
 .confirmArea button {
   border: none;
   border-radius: 999px;
@@ -95,6 +196,10 @@
 
   .infoGrid {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .extraGrid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .separator {
