@@ -168,20 +168,23 @@
 
 .confirmArea button {
   border: none;
-  border-radius: 999px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(232, 232, 232, 0.92));
-  color: var(--color-blue-dark);
-  min-height: 45px;
-  padding: 0 30px;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #d97706, #f59e0b); /* destaque em tom âmbar */
+  color: #ffffff;
+  min-height: 50px;
+  padding: 0 28px;
   letter-spacing: 0.8px;
   cursor: pointer;
-  box-shadow: 0 8px 22px rgba(27, 42, 74, 0.12);
+  font-weight: 700;
+  font-size: 1.02rem;
+  box-shadow: 0 12px 30px rgba(217, 119, 6, 0.16);
+  transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
 }
 
 .confirmArea button:hover {
-  background: linear-gradient(135deg, var(--color-blue-dark), var(--color-blue-mid));
-  color: var(--color-white);
-  transform: translateY(-2px);
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(217, 119, 6, 0.22);
+  opacity: 0.98;
 }
 
 .confirmArea p {
@@ -209,5 +212,23 @@
     left: auto;
     width: 1px;
     height: 60%;
+  }
+}
+
+@media (max-width: 767px) {
+  .confirmArea {
+    margin-top: 22px;
+  }
+
+  .confirmArea button {
+    width: 100%;
+    padding: 12px 18px;
+    min-height: 48px;
+    font-size: 1rem;
+  }
+
+  .countdownGrid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
   }
 }

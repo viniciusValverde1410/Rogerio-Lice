@@ -40,9 +40,28 @@ export default function AdminPage() {
     if (!isAuthenticated) {
       return;
     }
+    let mounted = true;
 
-    const data = JSON.parse(localStorage.getItem("confirmacoes") || "[]");
-    setConfirmacoes(data);
+    async function fetchData() {
+      try {
+        const res = await fetch('/api/confirmacoes');
+        if (!res.ok) return;
+        const data = await res.json();
+        if (mounted) setConfirmacoes(data);
+      } catch (e) {
+        // ignore network errors for now
+      }
+    }
+
+    fetchData();
+
+    // polling para atualizar lista quando outras pessoas confirmarem
+    const poll = setInterval(fetchData, 5000);
+
+    return () => {
+      mounted = false;
+      clearInterval(poll);
+    };
   }, [isAuthenticated]);
 
   const total = useMemo(() => confirmacoes.length, [confirmacoes]);
@@ -147,6 +166,34 @@ export default function AdminPage() {
                     <td>{item.nome}</td>
                     <td>{formatCpf(item.cpf)}</td>
                     <td>{formatDate(item.dataHora)}</td>
+                    <td>
+                      <button
+                        type="button"
+                        className={styles.deleteBtn}
+                        onClick={async () => {
+                          if (!confirm(`Remover confirmação de ${item.nome}?`)) return;
+                          try {
+                            const res = await fetch('/api/confirmacoes', {
+                              method: 'DELETE',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify({ cpf: item.cpf })
+                            });
+                            if (res.ok) {
+                              // refetch
+                              const r = await fetch('/api/confirmacoes');
+                              const data = await r.json();
+                              setConfirmacoes(data);
+                            } else {
+                              alert('Erro ao remover');
+                            }
+                          } catch (e) {
+                            alert('Erro de rede');
+                          }
+                        }}
+                      >
+                        Remover
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>

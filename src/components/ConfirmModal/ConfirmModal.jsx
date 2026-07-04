@@ -61,12 +61,6 @@ export default function ConfirmModal({ isOpen, onClose, onSuccess }) {
       nextErrors.cpf = "CPF obrigatorio.";
     } else if (!isValidCpfFormat(cpf)) {
       nextErrors.cpf = "Informe o CPF no formato 000.000.000-00.";
-    } else {
-      const existing = JSON.parse(localStorage.getItem("confirmacoes") || "[]");
-      const cpfExists = existing.some((item) => item.cpf === cpf);
-      if (cpfExists) {
-        nextErrors.cpf = "Este CPF ja foi confirmado anteriormente.";
-      }
     }
 
     setErrors(nextErrors);
@@ -75,7 +69,6 @@ export default function ConfirmModal({ isOpen, onClose, onSuccess }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     if (!validateForm()) {
       return;
     }
@@ -86,16 +79,29 @@ export default function ConfirmModal({ isOpen, onClose, onSuccess }) {
       dataHora: new Date().toISOString()
     };
 
-    const existing = JSON.parse(localStorage.getItem("confirmacoes") || "[]");
-    localStorage.setItem("confirmacoes", JSON.stringify([...existing, payload]));
+    // enviar para API centralizada
+    fetch('/api/confirmacoes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(async (res) => {
+      if (res.status === 201) {
+        setSuccessMessage('Presença confirmada! Até lá.');
+        onSuccess(payload);
 
-    setSuccessMessage("Presença confirmada! Até lá.");
-    onSuccess(payload);
-
-    setTimeout(() => {
-      resetForm();
-      onClose();
-    }, 2000);
+        setTimeout(() => {
+          resetForm();
+          onClose();
+        }, 1200);
+      } else if (res.status === 409) {
+        setErrors({ cpf: 'Este CPF já foi confirmado anteriormente.' });
+      } else {
+        const body = await res.json().catch(() => ({}));
+        setErrors({ cpf: body.error || 'Erro ao confirmar. Tente novamente.' });
+      }
+    }).catch(() => {
+      setErrors({ cpf: 'Erro de rede. Tente novamente.' });
+    });
   };
 
   return (

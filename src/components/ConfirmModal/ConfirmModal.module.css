@@ -75,8 +75,11 @@
 .confirmButton {
   border: none;
   border-radius: 999px;
-  background: linear-gradient(135deg, var(--color-blue-dark), var(--color-blue-mid));
-  color: var(--color-white);
+  background: linear-gradient(135deg, #d97706, #f59e0b);
+  color: #ffffff;
+  font-weight: 700;
+  min-height: 46px;
+  padding: 0 20px;
 }
 
 .confirmButton:hover {
