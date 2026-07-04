@@ -16,6 +16,8 @@ function isValidCpfFormat(value) {
   return /^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(value);
 }
 
+const FORMSPREE_ENDPOINT = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT || "https://formspree.io/f/xrewroqw";
+
 export default function ConfirmModal({ isOpen, onClose, onSuccess }) {
   const [nome, setNome] = useState("");
   const [cpf, setCpf] = useState("");
@@ -67,7 +69,7 @@ export default function ConfirmModal({ isOpen, onClose, onSuccess }) {
     return Object.keys(nextErrors).length === 0;
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmitForm = async (event) => {
     event.preventDefault();
     if (!validateForm()) {
       return;
@@ -79,42 +81,57 @@ export default function ConfirmModal({ isOpen, onClose, onSuccess }) {
       dataHora: new Date().toISOString()
     };
 
-    // enviar para API centralizada
-    fetch('/api/confirmacoes', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    }).then(async (res) => {
-      if (res.status === 201) {
-        setSuccessMessage('Presença confirmada! Até lá.');
-        onSuccess(payload);
+    try {
+      const [formspreeResponse] = await Promise.all([
+        fetch(FORMSPREE_ENDPOINT, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            nome: payload.nome,
+            cpf: payload.cpf,
+            dataHora: payload.dataHora,
+            _subject: "Nova confirmação de presença"
+          })
+        }),
+        fetch("/api/confirmacoes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        })
+      ]);
 
-        setTimeout(() => {
-          resetForm();
-          onClose();
-        }, 1200);
-      } else if (res.status === 409) {
-        setErrors({ cpf: 'Este CPF já foi confirmado anteriormente.' });
-      } else {
-        const body = await res.json().catch(() => ({}));
-        setErrors({ cpf: body.error || 'Erro ao confirmar. Tente novamente.' });
+      if (!formspreeResponse.ok) {
+        setErrors({ cpf: "Não consegui enviar ao Formspree. Tente novamente." });
+        return;
       }
-    }).catch(() => {
-      setErrors({ cpf: 'Erro de rede. Tente novamente.' });
-    });
+
+      setSuccessMessage("Presença confirmada! Até lá.");
+      onSuccess(payload);
+
+      setTimeout(() => {
+        resetForm();
+        onClose();
+      }, 1200);
+    } catch {
+      setErrors({ cpf: "Erro de rede. Tente novamente." });
+    }
   };
 
   return (
     <div className={styles.overlay} role="dialog" aria-modal="true" aria-label="Confirmar presença">
       <div className={styles.modal}>
         <h3>Confirmação de Presença</h3>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmitForm}>
           <label htmlFor="nome">Nome completo</label>
           <input
             id="nome"
             type="text"
             placeholder="Digite seu nome"
             value={nome}
+            name="nome"
             onChange={(event) => setNome(event.target.value)}
           />
           {errors.nome ? <p className={styles.error}>{errors.nome}</p> : null}
@@ -125,6 +142,7 @@ export default function ConfirmModal({ isOpen, onClose, onSuccess }) {
             type="text"
             placeholder="000.000.000-00"
             value={cpf}
+            name="cpf"
             onChange={(event) => setCpf(formatCpf(event.target.value))}
             maxLength={14}
           />
