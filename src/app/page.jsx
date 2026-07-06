@@ -53,13 +53,22 @@ export default function HomePage() {
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           aria-label="Voltar ao inicio"
         >
-          Voltar ao Inicio
+          Voltar ao Início
         </button>
       </div>
 
       <footer className={styles.footer}>
-        <p>Aurelice Centanin Valverde & Rogerio Marques Valverde</p>
-        <span>25 Anos - Bodas de Prata</span>
+        <div className={styles.footerContent}>
+          <p className={styles.footerTitle}>Aurelice Centanin Valverde & Rogério Marques Valverde</p>
+          <p className={styles.footerBadge}>25 Anos - Bodas de Prata</p>
+
+          <div className={styles.footerMeta}>
+            <p className={styles.footerCopy}>Copyright © 2026. Todos os direitos reservados.</p>
+            <p className={styles.footerCredit}>
+              Desenvolvido por <a href="https://www.valverde-dev.com.br/" target="_blank" rel="noreferrer">Vinícius Valverde</a>
+            </p>
+          </div>
+        </div>
       </footer>
     </main>
   );

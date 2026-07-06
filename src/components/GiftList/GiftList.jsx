@@ -1,17 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { createPortal } from "react-dom";
 import styles from "./GiftList.module.css";
 
 const GIFT_LIST_URL =
   "https://www.querodecasamento.com.br/lista-de-casamento/valverde-rogerio-lice";
-const PIX_KEY = "19992092158";
+const PIX_KEY = "sentalinvalverde@gmail.com";
 
 export default function GiftList() {
   const [isPixOpen, setIsPixOpen] = useState(false);
   const [copyFeedback, setCopyFeedback] = useState("");
-  const modalRoot = typeof document !== "undefined" ? document.getElementById("modal-root") : null;
 
   const copyPixKey = async () => {
     try {
@@ -53,36 +51,37 @@ export default function GiftList() {
         </button>
       </div>
 
-      {isPixOpen && modalRoot
-        ? createPortal(
-            <div className={styles.modalOverlay} role="dialog" aria-modal="true" aria-label="Pix">
-              <div className={styles.modalBox}>
-                <h3>Pagamento via Pix</h3>
-                <p className={styles.pixLabel}>Chave Pix</p>
-                <div className={styles.pixKeyRow}>
-                  <div className={styles.pixKey}>{PIX_KEY}</div>
-                  <button
-                    type="button"
-                    className={styles.copyButton}
-                    onClick={copyPixKey}
-                    aria-label="Copiar chave Pix"
-                  >
-                    <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-                      <path d="M9 9V5.5A1.5 1.5 0 0 1 10.5 4h8A1.5 1.5 0 0 1 20 5.5v8A1.5 1.5 0 0 1 18.5 15H15" />
-                      <rect x="4" y="8" width="10" height="10" rx="1.5" ry="1.5" />
-                    </svg>
-                  </button>
-                </div>
-                {copyFeedback ? <p className={styles.copyFeedback}>{copyFeedback}</p> : null}
-                <div className={styles.qrPlaceholder}>Espaco reservado para o QR Code</div>
-                <button type="button" className={styles.closeButton} onClick={() => setIsPixOpen(false)}>
-                  Fechar
-                </button>
-              </div>
-            </div>,
-            modalRoot
-          )
-        : null}
+      {isPixOpen ? (
+        <div className={styles.modalOverlay} role="dialog" aria-modal="true" aria-label="Pix">
+          <div className={styles.modalBox}>
+            <h3>Pagamento via Pix</h3>
+            <p className={styles.pixLabel}>Chave Pix</p>
+            <div className={styles.pixKeyRow}>
+              <div className={styles.pixKey}>{PIX_KEY}</div>
+              <button
+                type="button"
+                className={styles.copyButton}
+                onClick={copyPixKey}
+                aria-label="Copiar chave Pix"
+              >
+                <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+                  <path d="M9 9V5.5A1.5 1.5 0 0 1 10.5 4h8A1.5 1.5 0 0 1 20 5.5v8A1.5 1.5 0 0 1 18.5 15H15" />
+                  <rect x="4" y="8" width="10" height="10" rx="1.5" ry="1.5" />
+                </svg>
+              </button>
+            </div>
+            {copyFeedback ? <p className={styles.copyFeedback}>{copyFeedback}</p> : null}
+            <img
+              className={styles.qrImage}
+              src="/images/qrcodePix.jpg"
+              alt="QR Code para pagamento via Pix"
+            />
+            <button type="button" className={styles.closeButton} onClick={() => setIsPixOpen(false)}>
+              Fechar
+            </button>
+          </div>
+        </div>
+      ) : null}
     </section>
   );
 }

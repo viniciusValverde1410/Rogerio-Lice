@@ -7,6 +7,10 @@
   padding: 84px 6%;
   width: min(1240px, 100%);
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #inicio {
@@ -46,21 +50,69 @@
 
 .footer {
   border-top: 1px solid rgba(168, 169, 173, 0.28);
-  padding: 55px 6% 70px;
-  text-align: center;
-  color: var(--color-blue-dark);
+  padding: 44px 6% 58px;
   background: #ffffff;
 }
 
-.footer p {
-  font-family: "Playfair Display", serif;
-  font-size: 1.15rem;
-  margin-bottom: 8px;
+.footerContent {
+  width: min(760px, 100%);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  color: var(--color-blue-dark);
 }
 
-.footer span {
+.footerTitle {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+  line-height: 1.45;
+}
+
+.footerBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border: 1px solid rgba(168, 169, 173, 0.28);
+  border-radius: 999px;
+  background: #f8fafc;
   color: var(--color-silver);
+  font-size: 0.86rem;
   letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.footerMeta {
+  width: 100%;
+  margin-top: 6px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(168, 169, 173, 0.18);
+  display: grid;
+  gap: 8px;
+  color: var(--color-silver);
+}
+
+.footerCopy,
+.footerCredit {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.footerCredit {
+  color: var(--color-silver);
+}
+
+.footer a {
+  color: var(--color-blue-dark);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
 }
 
 @media (min-width: 768px) {
@@ -70,5 +122,11 @@
 
   #inicio {
     padding-top: 86px;
+  }
+
+  .footerMeta {
+    grid-template-columns: repeat(2, auto);
+    justify-content: center;
+    column-gap: 28px;
   }
 }

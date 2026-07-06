@@ -158,6 +158,16 @@
   font-size: 0.92rem;
 }
 
+.qrImage {
+  margin-top: 16px;
+  width: min(260px, 100%);
+  aspect-ratio: 1;
+  object-fit: contain;
+  border: 1px solid rgba(168, 169, 173, 0.35);
+  background: #ffffff;
+  padding: 10px;
+}
+
 .qrPlaceholder {
   margin-top: 16px;
   min-height: 140px;

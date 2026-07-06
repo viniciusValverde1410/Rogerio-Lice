@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 130%;
   min-height: 42vh;
   padding: 2.5rem 3rem;
   background:
@@ -41,7 +41,7 @@
 }
 
 .decorativeLine {
-  width: 96px;
+  width: 876px;
   height: 1px;
   background: linear-gradient(
     90deg,

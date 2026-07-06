@@ -7,7 +7,8 @@ import styles from "./WeddingInfo.module.css";
 const eventInfo = [
   { label: "Data", value: "28/08/2026" },
   { label: "Horário", value: "19:30" },
-  { label: "Local", value: "LIMIT`S BUFFET Valinhos" }
+  { label: "Local", value: "LIMIT`S BUFFET Valinhos" },
+  { label: "Traje", value: "Traje fino" }
 ];
 
 const eventDateTime = new Date("2026-08-28T19:30:00");
@@ -69,7 +70,7 @@ export default function WeddingInfo() {
     <section className={styles.wrapper}>
       <div className={styles.titleArea}>
         <span />
-        <h2>Dados da Celebração</h2>
+        <h2>Informações da Celebração</h2>
         <span />
       </div>
 

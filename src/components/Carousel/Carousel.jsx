@@ -13,7 +13,7 @@ const slides = [
   {
     src: "/images/casal-02.jpg",
     alt: "Retrato romantico do casal",
-    caption: "Uma historia de parceria celebrada em cada detalhe."
+    caption: "Uma história de parceria celebrada em cada detalhe."
   },
   {
     src: "/images/casal-03.jpg",
