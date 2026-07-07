@@ -8,7 +8,7 @@ const slides = [
   {
     src: "/images/casal-01.jpg",
     alt: "Momento especial do casal",
-    caption: "Memorias construidas com elegancia e afeto."
+    caption: "Memórias construídas com elegância e afeto."
   },
   {
     src: "/images/casal-02.jpg",
@@ -17,7 +17,12 @@ const slides = [
   },
   {
     src: "/images/casal-03.jpg",
-    alt: "Registro da celebração",
+    alt: "Selfie romantica do casal",
+    caption: "Muitos anos apaixonados."
+  },
+  {
+    src: "/images/casal-04.jpg",
+    alt: "Registro do casal",
     caption: "A beleza de vinte e cinco anos compartilhados."
   }
 ];
